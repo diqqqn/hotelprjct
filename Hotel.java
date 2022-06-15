@@ -13,6 +13,7 @@ public class Hotel {
     static String[] startDate = new String[rooms.length];
     static String[] endDate = new String[rooms.length];
     static String[] comment = new String[rooms.length];
+    static String[] comment2 = new String[rooms.length];
 
     public static void checkChoice(int choice) {
         switch (choice) {
@@ -106,6 +107,7 @@ public class Hotel {
             String eDateArr[];
             String sDate;
             String eDate;
+
             do {
                 System.out.print("Start date: ");
                 sDate = sc.nextLine();
