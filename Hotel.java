@@ -69,6 +69,11 @@ public class Hotel {
             sDateArr = sDate.split("\\.");
             eDateArr = eDate.split("\\.");
 
+            if (Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
+                    || Integer.parseInt(sDateArr[2]) >= Integer.parseInt(eDateArr[2])) {
+                System.out.println("Invalid date!");
+            }
+
         } while (Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
                 && Integer.parseInt(sDateArr[2]) >= Integer.parseInt(eDateArr[2]));
 
@@ -115,9 +120,17 @@ public class Hotel {
                 eDate = sc.nextLine();
                 sDateArr = sDate.split("\\.");
                 eDateArr = eDate.split("\\.");
+                if (Integer.parseInt(sDateArr[1]) > Integer.parseInt(eDateArr[1])
+                        || Integer.parseInt(sDateArr[2]) > Integer.parseInt(eDateArr[2])
+                        || Integer.parseInt(sDateArr[0]) >= Integer.parseInt(eDateArr[0])
+                                && Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])) {
+                    System.out.println("Invalid date!");
+                }
 
             } while (Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
-                    && Integer.parseInt(sDateArr[2]) >= Integer.parseInt(eDateArr[2]));
+                    && Integer.parseInt(sDateArr[2]) >= Integer.parseInt(eDateArr[2])
+                    || Integer.parseInt(sDateArr[0]) >= Integer.parseInt(eDateArr[0])
+                            && Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1]));
 
             if (pattern.matcher(sDate).matches() && pattern.matcher(eDate).matches()) {
                 startDate[roomInd] = sDate;
@@ -127,8 +140,13 @@ public class Hotel {
                 return;
             }
 
-            System.out.print("Enter notes: ");
-            comment[roomInd] = sc.nextLine();
+            do {
+                System.out.print("Enter notes: ");
+                comment[roomInd] = sc.nextLine();
+                if (comment[roomInd] == "" || comment[roomInd] == null) {
+                    System.out.println("Please add note:");
+                }
+            } while (comment[roomInd] == "" || comment[roomInd] == null);
             System.out.println("Reservation was created!");
         } else {
             System.out.println("Room is not free or invalid room:");
