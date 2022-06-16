@@ -48,15 +48,13 @@ public class Hotel {
     }
 
     private static void status() {
-    }
-
-    private static void checkoutRoom() {
         sc = new Scanner(System.in);
 
         String sDateArr[];
         String eDateArr[];
         String sDate;
         String eDate;
+
         do {
             System.out.print("Start date: ");
             sDate = sc.nextLine();
@@ -66,23 +64,42 @@ public class Hotel {
                 System.out.println("Invalid date!");
                 return;
             }
+
             sDateArr = sDate.split("\\.");
             eDateArr = eDate.split("\\.");
 
-            if (Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
-                    || Integer.parseInt(sDateArr[2]) >= Integer.parseInt(eDateArr[2])) {
+            if (Integer.parseInt(sDateArr[1]) > Integer.parseInt(eDateArr[1]) ||
+                    Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
+                            && Integer.parseInt(sDateArr[0]) > Integer.parseInt(eDateArr[0])
+                    || Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
+                            && Integer.parseInt(sDateArr[2]) > Integer.parseInt(eDateArr[2])) {
                 System.out.println("Invalid date!");
             }
-
-        } while (Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
-                && Integer.parseInt(sDateArr[2]) >= Integer.parseInt(eDateArr[2]));
+        } while (Integer.parseInt(sDateArr[1]) > Integer.parseInt(eDateArr[1]) ||
+                Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
+                        && Integer.parseInt(sDateArr[0]) > Integer.parseInt(eDateArr[0])
+                || Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
+                        && Integer.parseInt(sDateArr[2]) > Integer.parseInt(eDateArr[2]));
 
         for (int i = 0; i < rooms.length; i++) {
             if (startDate[i] != null && endDate[i] != null && comment[i] != null) {
+                String[] currentRoomStartDateArr = startDate[i].split("\\.");
+                String[] currentRoomEndDateArr = startDate[i].split("\\.");
 
-                System.out.println(rooms[i] + ":");
+                if (Integer.parseInt(currentRoomStartDateArr[0]) >= Integer.parseInt(sDateArr[0])
+                        && Integer.parseInt(currentRoomEndDateArr[0]) <= Integer.parseInt(eDateArr[0])) {
+
+                    System.out.println(rooms[i] + ": "
+                            + (Integer.parseInt(eDateArr[0]) - Integer.parseInt(currentRoomStartDateArr[0]) + " days"));
+                }
+
             }
         }
+
+    }
+
+    private static void checkoutRoom() {
+
     }
 
     private static void listFreeRooms() {
@@ -127,8 +144,8 @@ public class Hotel {
                     System.out.println("Invalid date!");
                 }
 
-            } while (Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
-                    && Integer.parseInt(sDateArr[2]) >= Integer.parseInt(eDateArr[2])
+            } while (Integer.parseInt(sDateArr[1]) > Integer.parseInt(eDateArr[1])
+                    && Integer.parseInt(sDateArr[2]) > Integer.parseInt(eDateArr[2])
                     || Integer.parseInt(sDateArr[0]) >= Integer.parseInt(eDateArr[0])
                             && Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1]));
 
@@ -149,7 +166,7 @@ public class Hotel {
             } while (comment[roomInd] == "" || comment[roomInd] == null);
             System.out.println("Reservation was created!");
         } else {
-            System.out.println("Room is not free or invalid room:");
+            System.out.println("Room is not free or invalid room number:");
         }
     }
 
