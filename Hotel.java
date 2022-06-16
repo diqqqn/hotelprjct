@@ -85,7 +85,7 @@ public class Hotel {
             if (startDate[i] != null && endDate[i] != null && comment[i] != null) {
                 String[] currentRoomStartDateArr = startDate[i].split("\\.");
                 String[] currentRoomEndDateArr = startDate[i].split("\\.");
-
+                // TODO: nedovur6ena proverka za dati
                 if (Integer.parseInt(currentRoomStartDateArr[0]) >= Integer.parseInt(sDateArr[0])
                         && Integer.parseInt(currentRoomEndDateArr[0]) <= Integer.parseInt(eDateArr[0])) {
 
@@ -99,6 +99,55 @@ public class Hotel {
     }
 
     private static void checkoutRoom() {
+        sc = new Scanner(System.in);
+
+        String sDateArr[];
+        String eDateArr[];
+        String sDate;
+        String eDate;
+
+        do {
+            System.out.print("Start date: ");
+            sDate = sc.nextLine();
+            System.out.print("End date: ");
+            eDate = sc.nextLine();
+            if (!pattern.matcher(sDate).matches() && !pattern.matcher(eDate).matches()) {
+                System.out.println("Invalid date!");
+                return;
+            }
+
+            sDateArr = sDate.split("\\.");
+            eDateArr = eDate.split("\\.");
+
+            if (Integer.parseInt(sDateArr[1]) > Integer.parseInt(eDateArr[1]) ||
+                    Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
+                            && Integer.parseInt(sDateArr[0]) > Integer.parseInt(eDateArr[0])
+                    || Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
+                            && Integer.parseInt(sDateArr[2]) > Integer.parseInt(eDateArr[2])) {
+                System.out.println("Invalid date!");
+            }
+        } while (Integer.parseInt(sDateArr[1]) > Integer.parseInt(eDateArr[1]) ||
+                Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
+                        && Integer.parseInt(sDateArr[0]) > Integer.parseInt(eDateArr[0])
+                || Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
+                        && Integer.parseInt(sDateArr[2]) > Integer.parseInt(eDateArr[2]));
+
+        for (int i = 0; i < rooms.length; i++) {
+
+            if (startDate[i] == null && endDate[i] == null) {
+                System.out.println("Available rooms:" + rooms[i]);
+            }
+            if (startDate[i] != null && endDate[i] != null) {
+                String[] roomStartArr = startDate[i].split("\\.");
+                String[] roomEndArr = endDate[i].split("\\.");
+                // TODO:trqbva da se fixne proverkata za intervala na zaetata staq
+                if (Integer.parseInt(roomStartArr[0]) >= Integer.parseInt(sDateArr[0])
+                        && Integer.parseInt(roomEndArr[0]) <= Integer.parseInt(eDateArr[0])) {
+                    System.out.println("Available rooms:" + rooms[i]);
+                }
+            }
+
+        }
 
     }
 
