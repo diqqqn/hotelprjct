@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
@@ -189,7 +190,6 @@ public class Hotel {
                 System.out.println("Please add note:");
             }
         } while (comment[roomNumIndex] == "" || comment[roomNumIndex] == null);
-
     }
 
     public static void findRoom() {
@@ -242,10 +242,23 @@ public class Hotel {
                         System.out.println(rooms[ind]);
                     }
                 }
-
             }
         }
+    }
 
+    public static long returnDiffirenceBetween2date(String sDate, String eDate) {
+        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
+        long d1;
+        long d2;
+        long diffirence = 0;
+        try {
+            d1 = formater.parse(sDate).getTime();
+            d2 = formater.parse(eDate).getTime();
+            diffirence = Math.abs((d1 - d2) / (1000 * 60 * 60 * 24));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return diffirence;
     }
 
     public static void status() {
@@ -283,18 +296,22 @@ public class Hotel {
                         && Integer.parseInt(sDateArr[0]) > Integer.parseInt(eDateArr[0])
                 || Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
                         && Integer.parseInt(sDateArr[2]) > Integer.parseInt(eDateArr[2]));
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        long d1;
-        long d2;
-        long total = 0;
+
         for (int i = 0; i < rooms.length; i++) {
             if (comment[i] == null && startDate[i] == null && endDate[i] == null) {
                 System.out.println(rooms[i] + ": 0 days");
             } else {
                 if (getDateRangeForStatus(sDate, eDate, startDate[i])
                         || getDateRangeForStatus(sDate, eDate, endDate[i])) {
-
-                    System.out.println(rooms[i]);
+                    if (getDateRangeForStatus(sDate, eDate, startDate[i])) {
+                        System.out
+                                .println(rooms[i] + ": " + returnDiffirenceBetween2date(eDate, startDate[i]) + " days");
+                    } else if (getDateRangeForStatus(sDate, eDate, endDate[i])) {
+                        System.out.println(rooms[i] + ": " + returnDiffirenceBetween2date(sDate, endDate[i]) + " days");
+                    }
+                } else if (getDateRange(sDate, eDate, startDate[i])
+                        || getDateRange(sDate, eDate, endDate[i])) {
+                    System.out.println(rooms[i] + ": " + returnDiffirenceBetween2date(sDate, eDate) + " days");
                 }
             }
         }
