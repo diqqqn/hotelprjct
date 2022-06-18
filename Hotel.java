@@ -181,7 +181,6 @@ public class Hotel {
 
         startDate[roomNumIndex] = sDate;
         endDate[roomNumIndex] = eDate;
-
         do {
             System.out.println("Your current note is : '" + comment[roomNumIndex] + "'");
             System.out.print("Enter your new note: ");
@@ -194,7 +193,6 @@ public class Hotel {
 
     public static void findRoom() {
         sc = new Scanner(System.in);
-
         String sDateArr[];
         String eDateArr[];
         String sDate;
@@ -205,6 +203,7 @@ public class Hotel {
             System.out.print("Enter number of beds: ");
             numberOfBed = sc.nextInt();
         } while (numberOfBed <= 0 && numberOfBed >= 5);
+
         sc = new Scanner(System.in);
         do {
             System.out.print("Start date: ");
@@ -218,7 +217,6 @@ public class Hotel {
 
             sDateArr = sDate.split("\\.");
             eDateArr = eDate.split("\\.");
-
             if (Integer.parseInt(sDateArr[1]) > Integer.parseInt(eDateArr[1]) ||
                     Integer.parseInt(sDateArr[1]) >= Integer.parseInt(eDateArr[1])
                             && Integer.parseInt(sDateArr[0]) > Integer.parseInt(eDateArr[0])
@@ -341,7 +339,6 @@ public class Hotel {
         } else {
             System.out.println("Invalid room number");
         }
-
     }
 
     public static void listFreeRooms() {
@@ -416,17 +413,6 @@ public class Hotel {
     }
 
     public static void myHotel() {
-        // SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        // long d1;
-        // long d2;
-        // try {
-        // d1 = formater.parse("1.1.2001").getTime();
-        // d2 = formater.parse("1.1.2002").getTime();
-        // System.out.println(Math.abs((d1 - d2) / (1000 * 60 * 60 * 24)));
-        // } catch (ParseException e) {
-        // e.printStackTrace();
-        // }
-
         sc = new Scanner(System.in);
         int choice;
 
