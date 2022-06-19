@@ -45,17 +45,26 @@ public class Hotel {
         int firstDateYear = Integer.parseInt(firstDate[2]);
         int firstDateMouth = Integer.parseInt(firstDate[1]);
         int firstDateDay = Integer.parseInt(firstDate[0]);
-        LocalDate date1 = LocalDate.of(firstDateYear, firstDateMouth, firstDateDay);
+        LocalDate date1 = LocalDate.of(1, 1, 1);
+        try {
+            LocalDate.of(firstDateYear, firstDateMouth, firstDateDay);
+        } catch (Exception e) {
+            return false;
+        }
 
         int secondDateYear = Integer.parseInt(secondDate[2]);
         int secondDateMouth = Integer.parseInt(secondDate[1]);
         int secondDateDay = Integer.parseInt(secondDate[0]);
-        LocalDate date2 = LocalDate.of(secondDateYear, secondDateMouth, secondDateDay);
+        LocalDate date2;
+        try {
+            date2 = LocalDate.of(secondDateYear, secondDateMouth, secondDateDay);
+        } catch (Exception e) {
+            return false;
+        }
 
         if (date1.isBefore(date2)) {
             return true;
         }
-
         return false;
     }
 
@@ -154,6 +163,17 @@ public class Hotel {
         return diffirence;
     }
 
+    public static void checkCorrectDatePrintErrorMessage(String[] startDateArr, String[] endDateArr) {
+        if (!checkTheSecondDateIsGreaterThanTheFirst(startDateArr, endDateArr)) {
+            System.out.println("Wrong date.Please enter correct date!");
+        }
+    }
+
+    public static String[] returnSplitInPointDateStringArr(String userEnterDateString) {
+        String[] toSplitArr = userEnterDateString.split("\\.");
+        return toSplitArr;
+    }
+
     public static void updateRoom() {
         sc = new Scanner(System.in);
         System.out.print("Enter room number: ");
@@ -193,11 +213,9 @@ public class Hotel {
                 return;
             }
 
-            sDateArr = sDate.split("\\.");
-            eDateArr = eDate.split("\\.");
-            if (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr)) {
-                System.out.println("Invalid date!");
-            }
+            sDateArr = returnSplitInPointDateStringArr(sDate);
+            eDateArr = returnSplitInPointDateStringArr(eDate);
+            checkCorrectDatePrintErrorMessage(sDateArr, eDateArr);
         } while (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr));
 
         startDate[roomNumIndex] = sDate;
@@ -244,11 +262,9 @@ public class Hotel {
                 System.out.println("Invalid date format!");
                 return;
             }
-            sDateArr = sDate.split("\\.");
-            eDateArr = eDate.split("\\.");
-            if (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr)) {
-                System.out.println("Invalid date!");
-            }
+            sDateArr = returnSplitInPointDateStringArr(sDate);
+            eDateArr = returnSplitInPointDateStringArr(eDate);
+            checkCorrectDatePrintErrorMessage(sDateArr, eDateArr);
         } while (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr));
 
         System.out.println("Available rooms:");
@@ -281,12 +297,9 @@ public class Hotel {
                 System.out.println("Invalid date format!");
                 return;
             }
-
-            sDateArr = sDate.split("\\.");
-            eDateArr = eDate.split("\\.");
-            if (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr)) {
-                System.out.println("Invalid date!");
-            }
+            sDateArr = returnSplitInPointDateStringArr(sDate);
+            eDateArr = returnSplitInPointDateStringArr(eDate);
+            checkCorrectDatePrintErrorMessage(sDateArr, eDateArr);
         } while (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr));
 
         for (int i = 0; i < rooms.length; i++) {
@@ -321,6 +334,7 @@ public class Hotel {
                 break;
             }
         }
+
         if (checkoutRoomIndex != -1) {
             if (startDate[checkoutRoomIndex] != null && endDate[checkoutRoomIndex] != null
                     && comment[checkoutRoomIndex] != null) {
@@ -374,12 +388,9 @@ public class Hotel {
                     System.out.println("Invalid date format!");
                     return;
                 }
-
-                sDateArr = sDate.split("\\.");
-                eDateArr = eDate.split("\\.");
-                if (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr)) {
-                    System.out.println("Invalid date!");
-                }
+                sDateArr = returnSplitInPointDateStringArr(sDate);
+                eDateArr = returnSplitInPointDateStringArr(eDate);
+                checkCorrectDatePrintErrorMessage(sDateArr, eDateArr);
             } while (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr));
 
             startDate[roomInd] = sDate;
