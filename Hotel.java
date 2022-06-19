@@ -99,7 +99,7 @@ public class Hotel {
         return containsToday;
     }
 
-    public static boolean getDateRangeForStatus(String startDate, String endDate, String checkDate) {
+    public static boolean getDateRangeForStartAndEnd(String startDate, String endDate, String checkDate) {
         String[] checkDateArr;
         String[] checkStartDateArr;
         String[] checkEndDateArr;
@@ -188,17 +188,13 @@ public class Hotel {
             System.out.println("current end date " + endDate[roomNumIndex]);
             System.out.print("new end date: ");
             eDate = sc.nextLine();
-            if (!pattern.matcher(sDate).matches() && !pattern.matcher(eDate).matches()) {
+            if (!pattern.matcher(sDate).matches() || !pattern.matcher(eDate).matches()) {
                 System.out.println("Invalid date format!");
                 return;
             }
 
             sDateArr = sDate.split("\\.");
             eDateArr = eDate.split("\\.");
-            if (sDateArr.length <= 2 && eDateArr.length <= 2) {
-                System.out.println("Invalid Date:");
-                return;
-            }
             if (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr)) {
                 System.out.println("Invalid date!");
             }
@@ -244,24 +240,20 @@ public class Hotel {
             sDate = sc.nextLine();
             System.out.print("End date: ");
             eDate = sc.nextLine();
-            if (!pattern.matcher(sDate).matches() && !pattern.matcher(eDate).matches()) {
+            if (!pattern.matcher(sDate).matches() || !pattern.matcher(eDate).matches()) {
                 System.out.println("Invalid date format!");
                 return;
             }
             sDateArr = sDate.split("\\.");
             eDateArr = eDate.split("\\.");
-            if (sDateArr.length <= 2 && eDateArr.length <= 2) {
-                System.out.println("Invalid Date:");
-                return;
-            }
             if (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr)) {
                 System.out.println("Invalid date!");
             }
         } while (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr));
 
+        System.out.println("Available rooms:");
         for (int ind = 0; ind < rooms.length; ind++) {
             if (roomsBeds[ind] == numberOfBed) {
-
                 if (comment[ind] == null && startDate[ind] == null && endDate[ind] == null) {
                     System.out.println(rooms[ind]);
                 } else {
@@ -285,17 +277,13 @@ public class Hotel {
             sDate = sc.nextLine();
             System.out.print("End date: ");
             eDate = sc.nextLine();
-            if (!pattern.matcher(sDate).matches() && !pattern.matcher(eDate).matches()) {
+            if (!pattern.matcher(sDate).matches() || !pattern.matcher(eDate).matches()) {
                 System.out.println("Invalid date format!");
                 return;
             }
 
             sDateArr = sDate.split("\\.");
             eDateArr = eDate.split("\\.");
-            if (sDateArr.length <= 2 && eDateArr.length <= 2) {
-                System.out.println("Invalid Date:");
-                return;
-            }
             if (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr)) {
                 System.out.println("Invalid date!");
             }
@@ -305,12 +293,12 @@ public class Hotel {
             if (comment[i] == null && startDate[i] == null && endDate[i] == null) {
                 System.out.println(rooms[i] + ": 0 days");
             } else {
-                if (getDateRangeForStatus(sDate, eDate, startDate[i])
-                        || getDateRangeForStatus(sDate, eDate, endDate[i])) {
-                    if (getDateRangeForStatus(sDate, eDate, startDate[i])) {
+                if (getDateRangeForStartAndEnd(sDate, eDate, startDate[i])
+                        || getDateRangeForStartAndEnd(sDate, eDate, endDate[i])) {
+                    if (getDateRangeForStartAndEnd(sDate, eDate, startDate[i])) {
                         System.out
                                 .println(rooms[i] + ": " + returnDiffirenceBetween2date(eDate, startDate[i]) + " days");
-                    } else if (getDateRangeForStatus(sDate, eDate, endDate[i])) {
+                    } else if (getDateRangeForStartAndEnd(sDate, eDate, endDate[i])) {
                         System.out.println(rooms[i] + ": " + returnDiffirenceBetween2date(sDate, endDate[i]) + " days");
                     }
                 } else if (getDateRange(sDate, eDate, startDate[i])
@@ -330,6 +318,7 @@ public class Hotel {
         for (int i = 0; i < rooms.length; i++) {
             if (rooms[i].equals(checkoutRoomNumber)) {
                 checkoutRoomIndex = i;
+                break;
             }
         }
         if (checkoutRoomIndex != -1) {
@@ -365,6 +354,7 @@ public class Hotel {
             if (startDate[i] == null && endDate[i] == null && comment[i] == null) {
                 if (rooms[i].equals(roomNum)) {
                     roomInd = i;
+                    break;
                 }
             }
         }
@@ -380,18 +370,13 @@ public class Hotel {
                 sDate = sc.nextLine();
                 System.out.print("End date: ");
                 eDate = sc.nextLine();
-
-                if (!pattern.matcher(sDate).matches() && !pattern.matcher(eDate).matches()) {
+                if (!pattern.matcher(sDate).matches() || !pattern.matcher(eDate).matches()) {
                     System.out.println("Invalid date format!");
                     return;
                 }
 
                 sDateArr = sDate.split("\\.");
                 eDateArr = eDate.split("\\.");
-                if (sDateArr.length <= 2 && eDateArr.length <= 2) {
-                    System.out.println("Invalid Date:");
-                    return;
-                }
                 if (!checkTheSecondDateIsGreaterThanTheFirst(sDateArr, eDateArr)) {
                     System.out.println("Invalid date!");
                 }
