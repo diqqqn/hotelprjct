@@ -68,6 +68,11 @@ public class Hotel {
         return false;
     }
 
+    public static String[] returnSplitInPointDateStringArr(String userEnterDateString) {
+        String[] toSplitArr = userEnterDateString.split("\\.");
+        return toSplitArr;
+    }
+
     public static boolean getDateRange(String startDate, String endDate, String checkDate) {
         String[] checkDateArr;
         String[] checkStartDateArr;
@@ -76,17 +81,17 @@ public class Hotel {
         if (checkDate == null) {
             return false;
         } else {
-            checkDateArr = checkDate.split("\\.");
+            checkDateArr = returnSplitInPointDateStringArr(checkDate);
         }
         if (startDate == null) {
             return false;
         } else {
-            checkStartDateArr = startDate.split("\\.");
+            checkStartDateArr = returnSplitInPointDateStringArr(startDate);
         }
         if (endDate == null) {
             return false;
         } else {
-            checkEndDateArr = endDate.split("\\.");
+            checkEndDateArr = returnSplitInPointDateStringArr(endDate);
         }
 
         int checkDateYear = Integer.parseInt(checkDateArr[2]);
@@ -116,17 +121,17 @@ public class Hotel {
         if (checkDate == null) {
             return false;
         } else {
-            checkDateArr = checkDate.split("\\.");
+            checkDateArr = returnSplitInPointDateStringArr(checkDate);
         }
         if (startDate == null) {
             return false;
         } else {
-            checkStartDateArr = startDate.split("\\.");
+            checkStartDateArr = returnSplitInPointDateStringArr(startDate);
         }
         if (endDate == null) {
             return false;
         } else {
-            checkEndDateArr = endDate.split("\\.");
+            checkEndDateArr = returnSplitInPointDateStringArr(endDate);
         }
 
         int checkDateYear = Integer.parseInt(checkDateArr[2]);
@@ -167,11 +172,6 @@ public class Hotel {
         if (!checkTheSecondDateIsGreaterThanTheFirst(startDateArr, endDateArr)) {
             System.out.println("Wrong date.Please enter correct date!");
         }
-    }
-
-    public static String[] returnSplitInPointDateStringArr(String userEnterDateString) {
-        String[] toSplitArr = userEnterDateString.split("\\.");
-        return toSplitArr;
     }
 
     public static void updateRoom() {
