@@ -11,6 +11,15 @@ public class Hotel {
     static String[] rooms = { "101", "102", "103", "104", "201", "202", "203",
             "301", "302", "303", "401", "402", "501", "502", "601" };
     static int[] roomsBeds = { 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 5 };
+    static boolean[] roomsViewSea = { true, false, true, false, true, false, true, false, true, false, true, false,
+            true,
+            false, true };
+    static boolean[] roomsBreakfast = { true, false, true, false, true, false, true, false, true, false, true, false,
+            true,
+            false,
+            true };
+    static boolean[] roomsBabyCot = { false, false, false, true, false, true, false, true, false,
+            true, false, false, false, true, false, };
     static String[] startDate = new String[rooms.length];
     static String[] endDate = new String[rooms.length];
     static String[] comment = new String[rooms.length];
@@ -252,6 +261,63 @@ public class Hotel {
             }
         } while (numberOfBed <= 0 || numberOfBed >= 6);
 
+        Boolean view = false;
+        int choiceView = -1;
+        do {
+            try {
+                System.out.print("1 for sea view\n2 for mountain view \n: ");
+                choiceView = sc.nextInt();
+                if (choiceView <= 0 || choiceView >= 3) {
+                    System.out.println("rooms range is from 1 to 2");
+                } else {
+                    if (choiceView == 1) {
+                        view = true;
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("[!] Wrong key input ...");
+                System.out.println("[!] System set default 1 with sea view ...");
+            }
+        } while (choiceView <= 0 || choiceView >= 3);
+
+        int choiceBreakfast = -1;
+        Boolean Breakfast = false;
+        do {
+            try {
+                System.out.print("1 for with breakfast\n2 for without breakfast \n: ");
+                choiceBreakfast = sc.nextInt();
+                if (choiceBreakfast <= 0 || choiceBreakfast >= 3) {
+                    System.out.println("rooms range is from 1 to 2");
+                } else {
+                    if (choiceBreakfast == 1) {
+                        Breakfast = true;
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("[!] Wrong key input ...");
+                System.out.println("[!] System set default 1 without breakfast...");
+            }
+        } while (choiceBreakfast <= 0 || choiceBreakfast >= 3);
+
+        int choiceBabyCot = -1;
+        Boolean babyCot = false;
+        do {
+            try {
+                System.out.print("1 for without baby cot\n2 for with baby cot \n: ");
+                choiceBabyCot = sc.nextInt();
+                if (choiceBabyCot <= 0 || choiceBabyCot >= 3) {
+                    System.out.println("rooms range is from 1 to 2");
+                } else {
+                    if (choiceBabyCot == 1) {
+                        babyCot = true;
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("[!] Wrong key input ...");
+                System.out.println("[!] System set default 1 without baby cot...");
+            }
+        } while (choiceBabyCot <= 0 || choiceBabyCot >= 3);
+
         sc = new Scanner(System.in);
         do {
             System.out.print("Start date: ");
@@ -270,10 +336,14 @@ public class Hotel {
         System.out.println("Available rooms:");
         for (int ind = 0; ind < rooms.length; ind++) {
             if (roomsBeds[ind] == numberOfBed) {
-                if (comment[ind] == null && startDate[ind] == null && endDate[ind] == null) {
+                if (comment[ind] == null && startDate[ind] == null && endDate[ind] == null && roomsViewSea[ind] == view
+                        && roomsBreakfast[ind] == Breakfast
+                        && roomsBabyCot[ind] == babyCot) {
                     System.out.println(rooms[ind]);
                 } else {
-                    if (getDateRange(sDate, eDate, startDate[ind]) && getDateRange(sDate, eDate, endDate[ind])) {
+                    if (getDateRange(sDate, eDate, startDate[ind]) && getDateRange(sDate, eDate, endDate[ind])
+                            && roomsViewSea[ind] == view && roomsBreakfast[ind] == Breakfast
+                            && roomsBabyCot[ind] == babyCot) {
                         System.out.println(rooms[ind]);
                     }
                 }
